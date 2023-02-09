@@ -1,5 +1,11 @@
 <h1>Audio Recorder App</h1>
+<button (click)="handleStartRecordingButton()">Start Recording</button>
 <button (click)="handleStopRecordingButton()">Stop Recording</button>
 <button (click)="handlePlayRecordingButton()">Play Audio</button>
 
 <div id="waveform"></div>
+
+<p>
+  audio chunks array:
+  {{ audioChunks | json }}
+</p>

@@ -6,26 +6,30 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  analyser: AnalyserNode;
   recorder: MediaRecorder;
   audioChunks: Blob[] = [];
 
   audioContext = new AudioContext();
-  constructor() {
+  constructor() {}
+
+  handleStartRecordingButton() {
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
       debugger;
       const mediaStreamSource =
         this.audioContext.createMediaStreamSource(stream);
+      this.analyser = this.audioContext.createAnalyser();
+      mediaStreamSource.connect(this.analyser);
+      const dataArray = new Uint8Array(this.analyser.frequencyBinCount);
 
       this.recorder = new MediaRecorder(stream);
       this.recorder.start();
-
       this.recorder.addEventListener('dataavailable', (event) => {
         this.audioChunks.push(event.data);
         debugger;
       });
     });
   }
-
   handleStopRecordingButton() {
     debugger;
     this.recorder.stop();
