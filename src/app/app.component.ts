@@ -9,8 +9,9 @@ export class AppComponent {
   analyser: AnalyserNode;
   recorder: MediaRecorder;
   audioChunks: Blob[] = [];
-
+  dataArray: Uint8Array;
   audioContext = new AudioContext();
+  audioFrequency: number;
   constructor() {}
 
   handleStartRecordingButton() {
@@ -20,7 +21,7 @@ export class AppComponent {
         this.audioContext.createMediaStreamSource(stream);
       this.analyser = this.audioContext.createAnalyser();
       mediaStreamSource.connect(this.analyser);
-      const dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+      this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
 
       this.recorder = new MediaRecorder(stream);
       this.recorder.start();
@@ -41,5 +42,10 @@ export class AppComponent {
     const audioUrl = URL.createObjectURL(audioBlob);
     const audio = new Audio(audioUrl);
     audio.play();
+  }
+  getByteFrequencyData() {
+    console.log('hello from getByteFrequencyData');
+    this.analyser.getByteFrequencyData(this.dataArray);
+    console.log(this.dataArray);
   }
 }
