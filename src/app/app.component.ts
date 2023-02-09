@@ -12,6 +12,7 @@ export class AppComponent {
   dataArray: Uint8Array;
   audioContext = new AudioContext();
   audioFrequency: number;
+  volume = 0;
   constructor() {}
 
   handleStartRecordingButton() {
@@ -46,6 +47,10 @@ export class AppComponent {
   getByteFrequencyData() {
     console.log('hello from getByteFrequencyData');
     this.analyser.getByteFrequencyData(this.dataArray);
-    console.log(this.dataArray);
+    console.log(this.dataArray.filter((data) => data > 0));
+    this.volume = this.dataArray.reduce(
+      (sum, currentNumber) => sum + currentNumber,
+      0
+    );
   }
 }
