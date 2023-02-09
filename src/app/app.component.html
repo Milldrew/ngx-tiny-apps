@@ -1,49 +1,5 @@
-<!--
-
-        // Initialize the recorder
-        let recorder;
-        let audioChunks = [];
-
-        // Initialize the audio context
-        const audioContext = new AudioContext();
-
-        // Initialize the media stream
-        navigator.mediaDevices.getUserMedia({ audio: true })
-            .then(stream => {
-                // Create a media stream source
-                const mediaStreamSource = audioContext.createMediaStreamSource(stream);
-
-                // Create a recorder
-                recorder = new MediaRecorder(mediaStreamSource);
-
-                // Start recording
-                recorder.start();
-
-                // Add the audio chunks to the array
-                recorder.addEventListener("dataavailable", event => {
-                    audioChunks.push(event.data);
-                });
-            });
-
-        // Stop recording
-        function stopRecording() {
-            recorder.stop();
-        }
-
-        // Play the audio
-        function playAudio() {
-            // Create a new audio blob
-            const audioBlob = new Blob(audioChunks);
-
-            // Create a new audio element
-            const audioUrl = URL.createObjectURL(audioBlob);
-            const audio = new Audio(audioUrl);
-
-            // Play the audio
-            audio.play();
-        }
-    </script>
-    -->
 <h1>Audio Recorder App</h1>
-<button onclick="stopRecording()">Stop Recording</button>
-<button onclick="playAudio()">Play Audio</button>
+<button (click)="handleStopRecordingButton()">Stop Recording</button>
+<button (click)="handlePlayRecordingButton()">Play Audio</button>
+
+<div id="waveform"></div>
