@@ -1,11 +1,33 @@
-<h1>Audio Recorder App</h1>
-<button (click)="handleStartRecordingButton()">Start Recording</button>
-<button (click)="handleStopRecordingButton()">Stop Recording</button>
-<button (click)="handlePlayRecordingButton()">Play Audio</button>
-<button (click)="getByteFrequencyData()">get frequency</button>
+<div id="top-block">
+  <h1>Audio Recorder App</h1>
+  <button
+    color="primary"
+    mat-raised-button
+    (click)="handleStartRecordingButton()"
+  >
+    Start Recording
+  </button>
+  <button
+    color="primary"
+    mat-raised-button
+    (click)="handleStopRecordingButton()"
+  >
+    Stop Recording
+  </button>
+  <button
+    color="primary"
+    mat-raised-button
+    (click)="handlePlayRecordingButton()"
+  >
+    Play Audio
+  </button>
+  <button color="primary" mat-raised-button (click)="getByteFrequencyData()">
+    get frequency
+  </button>
+</div>
+<millterial-mic-button> </millterial-mic-button>
 
-<div id="waveform"></div>
-
+templateUrl: './mic-button.component.html',
 <p>
   audio chunks array:
   {{ audioChunks | json }}
