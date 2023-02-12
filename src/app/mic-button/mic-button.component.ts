@@ -34,17 +34,20 @@ export class MicButtonComponent implements OnChanges {
   /**
    * This indicates whether the microphone is on or off.
    */
-  isOn = true;
+  isOn = false;
   handleClick() {
     this.isOn = !this.isOn;
     this.clickEvent.emit(this.isOn);
   }
-  ngOnChanges() {}
+  ngOnChanges() {
+    this.setRectangleHeight(this.inputVolume / 1500);
+  }
 
   handleVolumeChange(volumeData: number) {
     return volumeData;
   }
   setRectangleHeight(height: number) {
+    height = 12 - height;
     document.body
       .querySelector('rect')
       ?.setAttribute('height', height.toString());
