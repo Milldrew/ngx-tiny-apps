@@ -47,9 +47,7 @@ export class AppComponent {
   }
   getByteFrequencyData() {
     setInterval(() => {
-      console.log('hello from getByteFrequencyData');
       this.analyser.getByteFrequencyData(this.dataArray);
-      console.log(this.dataArray.filter((data) => data > 0));
       this.volume = this.dataArray.reduce(
         (sum, currentNumber) => sum + currentNumber,
         0
@@ -62,6 +60,7 @@ export class AppComponent {
   handleMicButton(isOn: boolean) {
     if (isOn) {
       this.handleStartRecordingButton();
+      this.getByteFrequencyData();
     } else {
       this.handleStopRecordingButton();
     }
