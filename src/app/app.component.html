@@ -22,7 +22,10 @@
 </div>
 
 -->
-<millterial-mic-button (clickEvent)="handleMicButton($event)">
+<millterial-mic-button
+  [inputVolume]="volume"
+  (clickEvent)="handleMicButton($event)"
+>
 </millterial-mic-button>
 <p>
   audio chunks array:
