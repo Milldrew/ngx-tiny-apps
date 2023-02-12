@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -45,18 +46,24 @@ export class AppComponent {
     audio.play();
   }
   getByteFrequencyData() {
-    console.log('hello from getByteFrequencyData');
-    this.analyser.getByteFrequencyData(this.dataArray);
-    console.log(this.dataArray.filter((data) => data > 0));
-    this.volume = this.dataArray.reduce(
-      (sum, currentNumber) => sum + currentNumber,
-      0
-    );
+    setInterval(() => {
+      console.log('hello from getByteFrequencyData');
+      this.analyser.getByteFrequencyData(this.dataArray);
+      console.log(this.dataArray.filter((data) => data > 0));
+      this.volume = this.dataArray.reduce(
+        (sum, currentNumber) => sum + currentNumber,
+        0
+      );
+    }, 300);
   }
   /**
    *@param isOn - This indicates whether the microphone is on or off.
    */
   handleMicButton(isOn: boolean) {
-    console.log('hello from handleMicButton', isOn);
+    if (isOn) {
+      this.handleStartRecordingButton();
+    } else {
+      this.handleStopRecordingButton();
+    }
   }
 }
