@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
@@ -7,8 +13,10 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./mic-button.component.scss'],
 })
 export class MicButtonComponent implements OnChanges {
+  @Output() clickEvent = new EventEmitter<boolean>();
   randomSubject = new Subject<number>();
   constructor() {
+    /*
     setInterval(() => {
       const randomValue = Math.floor(Math.random() * 11);
       this.randomSubject.next(randomValue);
@@ -18,13 +26,18 @@ export class MicButtonComponent implements OnChanges {
       this.inputVolume = data;
       this.setRectangleHeight(data);
     });
+    */
   }
 
   @Input()
   inputVolume: number;
+  /**
+   * This indicates whether the microphone is on or off.
+   */
   isOn = true;
   handleClick() {
     this.isOn = !this.isOn;
+    this.clickEvent.emit(this.isOn);
   }
   ngOnChanges() {}
 

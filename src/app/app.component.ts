@@ -53,4 +53,10 @@ export class AppComponent {
       0
     );
   }
+  /**
+   *@param isOn - This indicates whether the microphone is on or off.
+   */
+  handleMicButton(isOn: boolean) {
+    console.log('hello from handleMicButton', isOn);
+  }
 }
