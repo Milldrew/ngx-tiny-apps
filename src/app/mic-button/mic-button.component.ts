@@ -7,27 +7,19 @@ import {
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
+/**
+ * This component is a button that can be used to turn on and off the microphone.
+ * It also displays the volume of the microphone.
+ * It also handle the
+ */
 @Component({
-  selector: 'millterial-mic-button',
+  selector: 'millterial-mic-button-base',
   templateUrl: './mic-button.component.html',
   styleUrls: ['./mic-button.component.scss'],
 })
 export class MicButtonComponent implements OnChanges {
   @Output() clickEvent = new EventEmitter<boolean>();
-  randomSubject = new Subject<number>();
-  constructor() {
-    /*
-    setInterval(() => {
-      const randomValue = Math.floor(Math.random() * 11);
-      this.randomSubject.next(randomValue);
-    }, 300);
-    this.randomSubject.subscribe((data) => {
-      console.log(data);
-      this.inputVolume = data;
-      this.setRectangleHeight(data);
-    });
-    */
-  }
+  constructor() {}
 
   @Input()
   inputVolume: number;
