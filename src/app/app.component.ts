@@ -17,15 +17,15 @@ export class AppComponent {
   constructor() {}
 
   handleStartRecordingButton() {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((audioStream) => {
       debugger;
       const mediaStreamSource =
-        this.audioContext.createMediaStreamSource(stream);
+        this.audioContext.createMediaStreamSource(audioStream);
       this.analyser = this.audioContext.createAnalyser();
       mediaStreamSource.connect(this.analyser);
       this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
 
-      this.recorder = new MediaRecorder(stream);
+      this.recorder = new MediaRecorder(audioStream);
       this.recorder.start();
       this.recorder.addEventListener('dataavailable', (event) => {
         this.audioChunks.push(event.data);
