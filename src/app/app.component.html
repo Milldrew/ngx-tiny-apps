@@ -4,3 +4,9 @@
 <button color="primary" mat-raised-button (click)="playAudio()">
   Play Audio
 </button>
+
+<ul>
+  <li *ngFor="let recording of recordings">
+    <audio [src]="recording.url" controls></audio>
+  </li>
+</ul>
