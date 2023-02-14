@@ -14,7 +14,11 @@ export class AppComponent {
   audioContext = new AudioContext();
   audioFrequency: number;
   constructor() {}
-  handlePlayRecordingButton() {
+  handleNewAudioChunk(audioChunk: Blob) {
+    console.log(audioChunk);
+    this.audioChunk = audioChunk;
+  }
+  playAudio() {
     const audioUrl = URL.createObjectURL(this.audioChunk);
     const audio = new Audio(audioUrl);
     audio.play();

@@ -1,5 +1,6 @@
-<millterial-mic-button> </millterial-mic-button>
+<millterial-mic-button (audioChunkEmitter)="handleNewAudioChunk($event)">
+</millterial-mic-button>
 <p>{{ audioChunk }}</p>
-<button color="primary" mat-raised-button (click)="handlePlayRecordingButton()">
+<button color="primary" mat-raised-button (click)="playAudio()">
   Play Audio
 </button>

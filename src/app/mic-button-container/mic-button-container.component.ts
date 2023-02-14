@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'millterial-mic-button',
@@ -6,6 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./mic-button-container.component.scss'],
 })
 export class MicButtonContainerComponent {
+  /**
+   * When the recording is done, the audio blob is emitted.
+   */
+  @Output() audioChunkEmitter = new EventEmitter<Blob>();
   analyser: AnalyserNode;
   recorder: MediaRecorder;
   audioChunks: Blob[] = [];
@@ -32,7 +36,7 @@ export class MicButtonContainerComponent {
       this.recorder.start();
       this.recorder.addEventListener('dataavailable', async (event) => {
         this.stopMicrophone(audioStream);
-
+        this.audioChunkEmitter.emit(event.data);
         this.audioChunks.push(event.data);
       });
     });
