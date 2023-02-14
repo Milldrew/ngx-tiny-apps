@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -17,21 +18,25 @@ export class AppComponent {
   dataArray: Uint8Array;
   audioContext = new AudioContext();
   audioFrequency: number;
-  constructor() {}
+  constructor(public domSanitizer: DomSanitizer) {}
   handleNewAudioChunk(audioChunk: Blob) {
     this.recordings.push({
       timeStamp: new Date().toISOString(),
       audioChunk,
-      url: this.createUrlForAudio(audioChunk),
+      url: this.createSafeUrl(audioChunk),
     });
+
+    this.recordings.forEach(console.log);
     console.log(audioChunk);
     this.audioChunk = audioChunk;
   }
-  createUrlForAudio(audioChunk: Blob) {
-    return URL.createObjectURL(audioChunk);
+  createSafeUrl(audioChunk: Blob) {
+    const url = URL.createObjectURL(audioChunk);
+    const safeUrl = this.domSanitizer.bypassSecurityTrustUrl(url);
+    return safeUrl;
   }
   playAudio() {
-    const audio = new Audio(this.createUrlForAudio(this.audioChunk)).play();
+    const audio = new Audio(URL.createObjectURL(this.audioChunk)).play();
   }
 }
 type Recording = {
@@ -43,5 +48,5 @@ type Recording = {
    * The audio chunk is the actual audio recording.
    */
   audioChunk: Blob;
-  url?: string;
+  url?: SafeUrl;
 };
